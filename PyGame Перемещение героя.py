@@ -146,7 +146,11 @@ all_sprites = pygame.sprite.Group()
 tiles_group = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
 start_screen()
-level = load_level('map.map')
+try:
+    filename0 = input()
+    level = load_level(filename0)
+except FileNotFoundError as e:
+    print('FileNotFoundError', e)
 player, level_x, level_y = generate_level(level)
 running = True
 while running:
