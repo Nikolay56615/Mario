@@ -115,33 +115,49 @@ class Player(pygame.sprite.Sprite):
         if direction == "right":
             if level[pos_x][pos_y + 1] != '#':
                 try:
-                    level[pos_x] = level[pos_x][:pos_y] + '.' + level[pos_x][pos_y + 1:]
-                    level[pos_x] = level[pos_x][:pos_y + 1] + '@' + level[pos_x][pos_y + 2:]
+                    for i in range(len(level)):
+                        a = list(level[i])
+                        a.append(a[0])
+                        del a[0]
+                        a = ''.join(a)
+                        level[i] = a
+                    level[pos_x] = level[pos_x][:pos_y - 1] + '.' + level[pos_x][pos_y:]
+                    level[pos_x] = level[pos_x][:pos_y] + '@' + level[pos_x][pos_y + 1:]
                 except:
                     pass
         elif direction == 'left':
             if level[pos_x][pos_y - 1] != '#':
                 try:
-                    level[pos_x] = level[pos_x][:pos_y] + '.' + level[pos_x][pos_y + 1:]
-                    level[pos_x] = level[pos_x][:pos_y - 1] + '@' + level[pos_x][pos_y:]
+                    for i in range(len(level)):
+                        a = list(level[i])
+                        a.insert(0, a[-1])
+                        del a[-1]
+                        a = ''.join(a)
+                        level[i] = a
+                    level[pos_x] = level[pos_x][:pos_y + 1] + '.' + level[pos_x][pos_y + 2:]
+                    level[pos_x] = level[pos_x][:pos_y] + '@' + level[pos_x][pos_y + 1:]
                 except:
                     pass
         elif direction == 'up':
             if level[pos_x - 1][pos_y] != '#':
                 try:
-                    level[pos_x] = level[pos_x][:pos_y] + '.' + level[pos_x][pos_y + 1:]
-                    level[pos_x - 1] = level[pos_x - 1][:pos_y] + '@' + level[pos_x - 1][pos_y + 1:]
+                    level.insert(0, level[-1])
+                    del level[-1]
+                    level[pos_x + 1] = level[pos_x + 1][:pos_y] + '.' + level[pos_x + 1][pos_y + 1:]
+                    level[pos_x] = level[pos_x][:pos_y] + '@' + level[pos_x][pos_y + 1:]
                 except:
                     pass
         elif direction == 'down':
             if level[pos_x + 1][pos_y] != '#':
                 try:
-                    level[pos_x] = level[pos_x][:pos_y] + '.' + level[pos_x][pos_y + 1:]
-                    level[pos_x + 1] = level[pos_x + 1][:pos_y] + '@' + level[pos_x + 1][pos_y + 1:]
+                    level.append(level[0])
+                    del level[0]
+                    level[pos_x - 1] = level[pos_x - 1][:pos_y] + '.' + level[pos_x - 1][pos_y + 1:]
+                    level[pos_x] = level[pos_x][:pos_y] + '@' + level[pos_x][pos_y + 1:]
                 except:
                     pass
-                
-                
+
+
 class Camera:
     # зададим начальный сдвиг камеры
     def __init__(self):
